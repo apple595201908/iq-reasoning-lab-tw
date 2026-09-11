@@ -189,17 +189,18 @@ a:focus-visible {
 .inline-error { max-width: 310px; margin: 14px 0 0; color: #8a2f20; font-size: 14px; font-weight: 700; }
 
 .question-screen {
-  width: min(100%, 520px);
-  height: 100vh;
-  height: 100dvh;
+  width: min(100%, 540px);
+  min-height: 100vh;
+  min-height: 100dvh;
   margin-inline: auto;
   display: grid;
   grid-template-rows: auto minmax(0, 1fr) auto;
-  padding: max(12px, env(safe-area-inset-top)) clamp(14px, 4.5vw, 24px) max(14px, env(safe-area-inset-bottom));
-  overflow: hidden;
+  padding: max(10px, env(safe-area-inset-top)) clamp(12px, 4vw, 22px) max(12px, env(safe-area-inset-bottom));
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
-.test-header { min-width: 0; padding: 0 2px 10px; }
+.test-header { min-width: 0; padding: 0 2px 8px; }
 .progress-meta { display: flex; align-items: center; gap: 8px; height: 28px; color: #43546a; font-size: 13px; font-weight: 850; letter-spacing: .04em; }
 .progress-meta span:last-child:not(:first-child) { margin-left: auto; }
 .progress-duck { width: 23px; height: 24px; object-fit: contain; }
@@ -213,20 +214,20 @@ a:focus-visible {
   flex-direction: column;
   align-items: stretch;
   justify-content: center;
-  gap: clamp(9px, 2.2vh, 20px);
+  gap: clamp(10px, 2.2vh, 18px);
   padding: 4px 0 10px;
 }
 
 .question-card h1 {
-  max-width: 490px;
+  max-width: 510px;
   margin: 0 auto;
   text-align: center;
   text-wrap: balance;
   color: var(--ink);
-  font-size: clamp(29px, 8vw, 43px);
+  font-size: clamp(24px, 6.8vw, 38px);
   font-weight: 850;
-  letter-spacing: -.035em;
-  line-height: 1.18;
+  letter-spacing: -.03em;
+  line-height: 1.25;
   overflow-wrap: break-word;
   word-break: break-word;
 }
@@ -239,44 +240,98 @@ a:focus-visible {
 .code-rows {
   width: 100%;
   min-width: 0;
-  overflow: hidden;
   border: 1.5px solid #d8d5ca;
-  border-radius: 21px;
+  border-radius: 22px;
   background: var(--card);
+  box-shadow: 0 4px 14px rgba(16, 37, 63, 0.04);
 }
 
-.visual-stage { height: clamp(126px, 28vh, 214px); padding: clamp(5px, 1vh, 12px); }
+.visual-stage { height: clamp(126px, 28vh, 214px); padding: clamp(5px, 1vh, 12px); overflow: hidden; }
 .stimulus-svg { display: block; width: 100%; height: 100%; }
 .option-svg { display: block; width: min(100%, 188px); height: 72px; }
 
 .stimulus-spacer { flex: 1 1 72px; min-height: 34px; max-height: 105px; }
 
 .symbol-row {
-  min-height: 105px;
+  min-height: 110px;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: clamp(6px, 2.2vw, 14px);
-  padding: 14px clamp(7px, 2.4vw, 16px);
+  gap: clamp(8px, 2.5vw, 16px);
+  padding: 14px clamp(10px, 3vw, 18px);
 }
 
 .symbol-row span {
   flex: 0 1 auto;
   min-width: 0;
   color: var(--ink);
-  font-size: clamp(25px, 7.5vw, 38px);
+  font-size: clamp(23px, 6.5vw, 34px);
   font-weight: 850;
-  white-space: nowrap;
+  white-space: normal;
+  overflow-wrap: break-word;
 }
 
-.mapping-grid { min-height: 110px; display: grid; grid-template-columns: repeat(2, 1fr); place-items: center; gap: 7px 12px; padding: 14px 20px; }
-.mapping-grid span { white-space: nowrap; font-size: clamp(22px, 6.5vw, 31px); font-weight: 780; font-variant-numeric: tabular-nums; }
+.mapping-grid {
+  min-height: 116px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  place-items: center;
+  gap: 8px 16px;
+  padding: 14px clamp(12px, 4vw, 20px);
+}
+.mapping-grid span {
+  font-size: clamp(20px, 5.8vw, 28px);
+  font-weight: 780;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
 
-.logic-card { display: grid; align-content: center; gap: 6px; min-height: 130px; padding: 14px clamp(12px, 5vw, 26px); overflow-y: auto; }
-.logic-card p { margin: 0; text-align: center; color: #243b57; font-size: clamp(17px, 4.7vw, 22px); font-weight: 690; line-height: 1.35; text-wrap: balance; overflow-wrap: break-word; word-break: break-word; }
+.logic-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  min-height: 136px;
+  padding: clamp(14px, 2.8vh, 22px) clamp(14px, 4.5vw, 24px);
+  overflow-y: auto;
+}
+.logic-card p {
+  margin: 0;
+  width: 100%;
+  text-align: center;
+  color: #243b57;
+  font-size: clamp(16px, 4.2vw, 21px);
+  font-weight: 690;
+  line-height: 1.45;
+  text-wrap: balance;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
 
-.code-rows { min-height: 112px; display: grid; place-content: center; gap: 10px; padding: 14px 8px; overflow-x: auto; }
-.code-rows code { display: block; text-align: center; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: clamp(18px, 5.5vw, 28px); font-weight: 800; letter-spacing: .04em; }
+.code-rows {
+  min-height: 116px;
+  display: grid;
+  place-content: center;
+  gap: 10px;
+  padding: 14px 12px;
+  overflow-x: auto;
+}
+.code-rows code {
+  display: block;
+  text-align: center;
+  color: var(--ink);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: clamp(17px, 5vw, 26px);
+  font-weight: 800;
+  letter-spacing: .04em;
+  line-height: 1.4;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
 
 .memory-stage { min-height: 126px; display: grid; place-items: center; }
 .memory-values { display: flex; max-width: 100%; justify-content: center; gap: clamp(6px, 2vw, 12px); padding: 18px 10px; }
@@ -309,7 +364,7 @@ a:focus-visible {
 .choice-button:disabled { cursor: default; opacity: 1; }
 .choice-button.is-pressed { transform: scale(.975) translateY(2px); filter: saturate(.9) brightness(.94); }
 .choice-letter { display: grid; place-items: center; width: 39px; height: 39px; border: 2px solid rgba(255,255,255,.82); border-radius: 50%; font-size: 19px; font-weight: 900; }
-.choice-content { min-width: 0; display: grid; place-items: center; text-align: center; font-size: clamp(24px, 7vw, 33px); font-weight: 850; line-height: 1.12; text-wrap: balance; overflow-wrap: break-word; word-break: break-word; }
+.choice-content { min-width: 0; display: grid; place-items: center; text-align: center; font-size: clamp(20px, 6vw, 30px); font-weight: 850; line-height: 1.18; text-wrap: balance; overflow-wrap: break-word; word-break: break-word; padding: 0 4px; }
 .choice-content .option-svg { color: white; }
 .choice-button .option-svg path:not([fill]), .choice-button .option-svg line, .choice-button .option-svg polygon, .choice-button .option-svg rect[fill="none"], .choice-button .option-svg circle[fill="none"] { stroke: white; }
 .choice-button .option-svg rect[fill="#10253f"], .choice-button .option-svg circle[fill="#10253f"] { fill: white; }
@@ -403,9 +458,9 @@ a:focus-visible {
   .home-note { margin-top: 13px; }
   .text-button { margin-top: 16px; }
   .question-card { gap: 8px; padding-block: 2px 7px; }
-  .question-card h1 { font-size: clamp(27px, 7.4vw, 36px); }
+  .question-card h1 { font-size: clamp(21px, 6vw, 30px); line-height: 1.22; }
   .visual-stage { height: clamp(118px, 25vh, 164px); }
-  .logic-card { min-height: 112px; padding-block: 9px; }
+  .logic-card { min-height: 116px; padding-block: 10px; gap: 6px; }
   .stimulus-spacer { max-height: 64px; }
   .choice-button { min-height: 64px; padding-block: 5px; border-radius: 16px; }
   .choice-letter { width: 33px; height: 33px; font-size: 17px; }

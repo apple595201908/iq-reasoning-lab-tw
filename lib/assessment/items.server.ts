@@ -262,9 +262,9 @@ export const ASSESSMENT_ITEMS: AssessmentItem[] = [
   },
   {
     id: "q10", category: "spatial", difficulty: "easy",
-    stem: "原本面向北方，先向右轉 90°，再向後轉 180°。現在面向哪個方向？",
-    semanticSegments: ["原本面向北方，", "先向右轉 90°，", "再向後轉 180°。", "現在面向哪個方向？"],
-    stimulus: {"kind": "none"},
+    stem: "連續旋轉轉向後，現在面向哪個方向？",
+    semanticSegments: ["連續旋轉轉向後，", "現在面向哪個方向？"],
+    stimulus: { kind: "logic", lines: [["原本面向北方，先向右轉 90°"], ["接著再向後轉 180°"]] },
     options: [
       { id: "west", alt: "西方", semanticSegments: ["西方"] },
       { id: "east", alt: "東方", semanticSegments: ["東方"] },
@@ -703,9 +703,9 @@ export const ASSESSMENT_ITEMS: AssessmentItem[] = [
   },
   {
     id: "q31", category: "abstract", difficulty: "medium",
-    stem: "平面網格中，質點依規律移動：由 (1, 1) 開始，每步依向量 (＋2, ＋1) 移動。第 3 步之後的座標是？",
-    semanticSegments: ["平面網格中，", "質點依規律移動：", "由 (1, 1) 開始，", "每步依向量 (＋2, ＋1) 移動。", "第 3 步之後的座標是？"],
-    stimulus: {"kind": "none"},
+    stem: "質點依規律移動，第 3 步後的座標是？",
+    semanticSegments: ["質點依規律移動，", "第 3 步後的座標是？"],
+    stimulus: { kind: "logic", lines: [["起始位置：(1, 1)"], ["每步移動向量：(＋2, ＋1)"]] },
     options: [
       { id: "c74", alt: "(7, 4)", semanticSegments: ["(7, 4)"] },
       { id: "c53", alt: "(5, 3)", semanticSegments: ["(5, 3)"] },
@@ -976,8 +976,8 @@ export const ASSESSMENT_ITEMS: AssessmentItem[] = [
   },
   {
     id: "q44", category: "spatial", difficulty: "medium",
-    stem: "英文字母「F」順時針旋轉 180° 後，形狀外觀為？",
-    semanticSegments: ["英文字母「F」", "順時針旋轉 180° 後，", "形狀外觀為？"],
+    stem: "字母「F」旋轉 180° 後，外觀是？",
+    semanticSegments: ["字母「F」旋轉 180° 後，", "外觀是？"],
     stimulus: {"kind": "none"},
     options: [
       { id: "fRot180", alt: "豎線在右側，兩橫線朝左下方延伸", semanticSegments: ["豎線在右側，兩橫線朝左下方延伸"] },
@@ -997,8 +997,8 @@ export const ASSESSMENT_ITEMS: AssessmentItem[] = [
   },
   {
     id: "q45", category: "verbal", difficulty: "medium",
-    stem: "下列哪一組詞的關係，與「醫生：醫院」的本質最不相符？",
-    semanticSegments: ["下列哪一組詞的關係，", "與「醫生：醫院」的本質最不相符？"],
+    stem: "哪組關係與「醫生：醫院」最相符？",
+    semanticSegments: ["哪組關係與「醫生：醫院」", "最相符？"],
     stimulus: {"kind": "none"},
     options: [
       { id: "driverPassenger", alt: "司機：乘客", semanticSegments: ["司機：乘客"] },
@@ -1018,9 +1018,9 @@ export const ASSESSMENT_ITEMS: AssessmentItem[] = [
   },
   {
     id: "q46", category: "abstract", difficulty: "medium",
-    stem: "二乘二矩陣中，每格的邊數遵循規律：第一列為 3 邊形、4 邊形；第二列為 5 邊形、缺格。缺格應為幾邊形？",
-    semanticSegments: ["二乘二矩陣中，", "每格的邊數遵循規律：", "第一列為 3 邊形、4 邊形；", "第二列為 5 邊形、缺格。", "缺格應為幾邊形？"],
-    stimulus: {"kind": "none"},
+    stem: "依邊數變化規律，缺格應為幾邊形？",
+    semanticSegments: ["依邊數變化規律，", "缺格應為幾邊形？"],
+    stimulus: { kind: "textRows", rows: ["第一列：3 邊形 ｜ 4 邊形", "第二列：5 邊形 ｜ 缺格"] },
     options: [
       { id: "six", alt: "6 邊形", semanticSegments: ["6 邊形"] },
       { id: "five", alt: "5 邊形", semanticSegments: ["5 邊形"] },
@@ -1081,8 +1081,8 @@ export const ASSESSMENT_ITEMS: AssessmentItem[] = [
   },
   {
     id: "q49", category: "spatial", difficulty: "hard",
-    stem: "紙張依箭頭摺兩次後打孔。完全攤開時，孔洞分布是哪個？",
-    semanticSegments: ["紙張依箭頭", "摺兩次後打孔。", "完全攤開時，", "孔洞分布是哪個？"],
+    stem: "紙張摺兩次打孔，完全展開後是哪個？",
+    semanticSegments: ["紙張摺兩次打孔，", "完全展開後是哪個？"],
     stimulus: {"kind": "visual", "visualKey": "paper-fold-hard"},
     options: [
       { id: "four", alt: "四個孔左右與上下對稱分布", visualKey: "paper-fold-four" },
@@ -1165,8 +1165,8 @@ export const ASSESSMENT_ITEMS: AssessmentItem[] = [
   },
   {
     id: "q53", category: "workingMemory", difficulty: "hard",
-    stem: "數字由小到大、字母依字母順序排列，再把數字放前面。結果是？",
-    semanticSegments: ["數字由小到大、", "字母依字母順序排列，", "再把數字放前面。", "結果是？"],
+    stem: "數字在前遞增、字母依序排列，結果是？",
+    semanticSegments: ["數字在前遞增、", "字母依序排列，", "結果是？"],
     stimulus: {"kind": "memory", "values": ["E", "9", "A", "2", "C", "6"], "durationMs": 12500},
     options: [
       { id: "correct", alt: "2 6 9 ｜ A C E", semanticSegments: ["2 6 9 ｜ A C E"] },
@@ -1249,8 +1249,8 @@ export const ASSESSMENT_ITEMS: AssessmentItem[] = [
   },
   {
     id: "q57", category: "spatial", difficulty: "hard",
-    stem: "圖形先順時針旋轉 90°，再上下翻面。哪個結果正確？",
-    semanticSegments: ["圖形先", "順時針旋轉 90°，", "再上下翻面。", "哪個結果正確？"],
+    stem: "順轉 90° 再上下翻轉，哪個結果正確？",
+    semanticSegments: ["順轉 90° 再上下翻轉，", "哪個結果正確？"],
     stimulus: {"kind": "visual", "visualKey": "transform-two-step"},
     options: [
       { id: "correct", alt: "轉動再上下翻面後的圖形，圓點在右下", visualKey: "transform-two-correct" },
@@ -1375,9 +1375,9 @@ export const ASSESSMENT_ITEMS: AssessmentItem[] = [
   },
   {
     id: "q63", category: "spatial", difficulty: "hard",
-    stem: "立方體六面標有 1 至 6，相對面之點數和皆為 7。若 1 點朝上、2 點朝前，右側面為幾點？",
-    semanticSegments: ["立方體六面標有 1 至 6，", "相對面之點數和皆為 7。", "若 1 點朝上、2 點朝前，", "右側面為幾點？"],
-    stimulus: {"kind": "none"},
+    stem: "正方體骰子朝向如題，右側面為幾點？",
+    semanticSegments: ["正方體骰子朝向如題，", "右側面為幾點？"],
+    stimulus: { kind: "logic", lines: [["標準骰子六面 1～6，相對面點數和皆為 7"], ["當前狀態：1 點朝上、2 點朝前"]] },
     options: [
       { id: "four", alt: "4 點", semanticSegments: ["4 點"] },
       { id: "three", alt: "3 點", semanticSegments: ["3 點"] },
@@ -1417,8 +1417,8 @@ export const ASSESSMENT_ITEMS: AssessmentItem[] = [
   },
   {
     id: "q65", category: "abstract", difficulty: "hard",
-    stem: "三乘三矩陣中：每列形狀相同，同心層數依序為 1、2、3。第三列缺格應為？",
-    semanticSegments: ["三乘三矩陣中：", "每列形狀相同，", "同心層數依序為 1、2、3。", "第三列缺格應為？"],
+    stem: "三階矩陣同心層數遞增，缺格圖形是？",
+    semanticSegments: ["三階矩陣同心層數遞增，", "缺格圖形是？"],
     stimulus: {"kind": "visual", "visualKey": "matrix-triple-concentric"},
     options: [
       { id: "c3Tri", alt: "3 個同心三角形", semanticSegments: ["3 個同心三角形"] },
@@ -1438,9 +1438,9 @@ export const ASSESSMENT_ITEMS: AssessmentItem[] = [
   },
   {
     id: "q66", category: "verbal", difficulty: "hard",
-    stem: "「萌芽、成長、繁盛、凋零」是植物生命週期四階段。依照相同的歷程邏輯，「起草、修改、定稿、？」問號處應填入？",
-    semanticSegments: ["「萌芽、成長、繁盛、凋零」", "是植物生命週期四階段。", "依照相同的歷程邏輯，", "「起草、修改、定稿、？」", "問號處應填入？"],
-    stimulus: {"kind": "none"},
+    stem: "依照相同歷程邏輯，問號處應填入？",
+    semanticSegments: ["依照相同歷程邏輯，", "問號處應填入？"],
+    stimulus: { kind: "logic", lines: [["植物歷程：萌芽 → 成長 → 繁盛 → 凋零"], ["工作歷程：起草 → 修改 → 定稿 → ？"]] },
     options: [
       { id: "publish", alt: "發布", semanticSegments: ["發布"] },
       { id: "conceive", alt: "構思", semanticSegments: ["構思"] },
@@ -1501,8 +1501,8 @@ export const ASSESSMENT_ITEMS: AssessmentItem[] = [
   },
   {
     id: "q69", category: "workingMemory", difficulty: "hard",
-    stem: "先記住四個數字：將大於 4 的數字減 1，小於等於 4 的數字加 1。轉換後的結果是？",
-    semanticSegments: ["先記住四個數字：", "將大於 4 的數字減 1，", "小於等於 4 的數字加 1。", "轉換後的結果是？"],
+    stem: "大於 4 減 1、小於等於 4 加 1，結果是？",
+    semanticSegments: ["大於 4 減 1、", "小於等於 4 加 1，", "結果是？"],
     stimulus: {"kind": "memory", "values": ["3", "8", "2", "5"], "durationMs": 13500},
     options: [
       { id: "res4734", alt: "4 7 3 4", semanticSegments: ["4 7 3 4"] },
@@ -1522,13 +1522,13 @@ export const ASSESSMENT_ITEMS: AssessmentItem[] = [
   },
   {
     id: "q70", category: "abstract", difficulty: "hard",
-    stem: "八角形頂點上的黑點，每次順時針跳躍 2 格。第 5 次跳躍後黑點移動了多少格？",
-    semanticSegments: ["八角形頂點上的黑點，", "每次順時針跳躍 2 格。", "第 5 次跳躍後", "黑點移動了多少格？"],
-    stimulus: {"kind": "none"},
+    stem: "黑點每次跳 2 格，跳 5 次後共移動多少格？",
+    semanticSegments: ["黑點每次跳 2 格，", "跳 5 次後共移動多少格？"],
+    stimulus: { kind: "logic", lines: [["八角形頂點上，黑點每次順時針跳 2 格"], ["連續進行 5 次跳躍"]] },
     options: [
-      { id: "ten", alt: "10 格（相當於起始點順時針 2 格）", semanticSegments: ["10 格（相當於起始點順時針 2 格）"] },
-      { id: "eight", alt: "8 格（回到起始點）", semanticSegments: ["8 格（回到起始點）"] },
-      { id: "twelve", alt: "12 格（相當於起始點順時針 4 格）", semanticSegments: ["12 格（相當於起始點順時針 4 格）"] },
+      { id: "ten", alt: "10 格（順時針 2 格）", semanticSegments: ["10 格（順時針 2 格）"] },
+      { id: "eight", alt: "8 格（回到起點）", semanticSegments: ["8 格（回到起點）"] },
+      { id: "twelve", alt: "12 格（順時針 4 格）", semanticSegments: ["12 格（順時針 4 格）"] },
       { id: "seven", alt: "7 格", semanticSegments: ["7 格"] }
     ],
     correctOptionId: "ten",
@@ -1564,8 +1564,8 @@ export const ASSESSMENT_ITEMS: AssessmentItem[] = [
   },
   {
     id: "q72", category: "spatial", difficulty: "extreme",
-    stem: "依序旋轉 90°、上下翻面、再旋轉 180°。哪個結果正確？",
-    semanticSegments: ["依序旋轉 90°、", "上下翻面、", "再旋轉 180°。", "哪個結果正確？"],
+    stem: "連續幾何變換後，哪個結果正確？",
+    semanticSegments: ["連續幾何變換後，", "哪個結果正確？"],
     stimulus: {"kind": "visual", "visualKey": "transform-three-step"},
     options: [
       { id: "rightDiagonal", alt: "最終階梯形，實心點右上、空心點左下", visualKey: "transform-three-correct" },
@@ -1606,8 +1606,8 @@ export const ASSESSMENT_ITEMS: AssessmentItem[] = [
   },
   {
     id: "q74", category: "workingMemory", difficulty: "extreme",
-    stem: "數字由大到小、字母依字母順序，再從字母開始交錯排列。結果是？",
-    semanticSegments: ["數字由大到小、", "字母依字母順序，", "再從字母開始", "交錯排列。", "結果是？"],
+    stem: "字母開頭交替排序，排序結果是？",
+    semanticSegments: ["字母開頭交替排序，", "排序結果是？"],
     stimulus: {"kind": "memory", "values": ["8", "D", "3", "A", "6", "F", "1", "C"], "durationMs": 15500},
     options: [
       { id: "correct", alt: "A8 C6 D3 F1", semanticSegments: ["A8 C6 D3 F1"] },
@@ -1690,9 +1690,9 @@ export const ASSESSMENT_ITEMS: AssessmentItem[] = [
   },
   {
     id: "q78", category: "spatial", difficulty: "extreme",
-    stem: "正方形沿兩條對角線連續對摺兩次成三角形，在直角頂點處剪去一角。完全攤開後，圖形正中央會呈現什麼？",
-    semanticSegments: ["正方形沿兩條對角線", "連續對摺兩次成三角形，", "在直角頂點處剪去一角。", "完全攤開後，", "圖形正中央會呈現什麼？"],
-    stimulus: {"kind": "none"},
+    stem: "對折兩次剪去頂角，展開後呈現何種孔洞？",
+    semanticSegments: ["對折兩次剪去頂角，", "展開後呈現何種孔洞？"],
+    stimulus: { kind: "logic", lines: [["正方形紙沿對角線連續對折兩次成三角形"], ["在頂角處剪去一角後完全展開"]] },
     options: [
       { id: "centerDiamond", alt: "中央一個菱形（正方形）孔洞", semanticSegments: ["中央一個菱形（正方形）孔洞"] },
       { id: "fourHoles", alt: "四個分散的孔洞", semanticSegments: ["四個分散的孔洞"] },
