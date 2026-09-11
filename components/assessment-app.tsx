@@ -59,7 +59,7 @@ function HomeScreen({ onStart, onInfo, loading, error }: { onStart: () => void; 
   return (
     <main className="home-screen">
       <div className="home-card">
-        <div className="beta-chip">Beta・非臨床</div>
+        <div className="beta-chip">🦆 Beta・非臨床</div>
         <h1><span>你的 IQ</span><span>有多高？</span></h1>
         <p className="home-lead">80 題，約 20～25 分鐘。<br />每題請選 A、B、C 或 D。</p>
         <button className="primary-button" type="button" onClick={onStart} disabled={loading}>
@@ -265,7 +265,7 @@ function InfoScreen({ onBack }: { onBack: () => void }) {
   return (
     <main className="info-screen">
       <button className="back-button" type="button" onClick={onBack}>← 返回</button>
-      <span className="beta-chip">TW-BETA-0.2</span>
+      <span className="beta-chip">🦆 TW-BETA-0.2</span>
       <h1>測驗方法與限制</h1>
       <section><h2>測量內容</h2><p>80 題交替涵蓋抽象、空間、數量、邏輯、工作記憶、語文概念與處理速度。另有 2 題不計分練習題。</p></section>
       <section><h2>如何計分</h2><p>以三參數試題反應模型的 EAP 能力估計計分，四選一猜測率暫設 0.25。題目難度與鑑別度目前都是編製階段的暫定參數；一般題不會因答得快而加分。</p></section>

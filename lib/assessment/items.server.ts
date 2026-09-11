@@ -304,9 +304,9 @@ export const ASSESSMENT_ITEMS: AssessmentItem[] = [
   },
   {
     id: "q12", category: "logic", difficulty: "easy",
-    stem: "所有正方形都是四邊形。所有四邊形內角和都是 360°。由此可必然得出？",
-    semanticSegments: ["所有正方形都是四邊形。", "所有四邊形內角和都是 360°。", "由此可必然得出？"],
-    stimulus: {"kind": "none"},
+    stem: "根據已知前提，由此可必然得出？",
+    semanticSegments: ["根據已知前提，", "由此可必然得出？"],
+    stimulus: { kind: "logic", lines: [["所有正方形都是四邊形。"], ["所有四邊形內角和都是 360°。"]] },
     options: [
       { id: "allSquare", alt: "所有正方形內角和都是 360°", semanticSegments: ["所有正方形內角和都是 360°"] },
       { id: "someSquare", alt: "只有部分正方形內角和是 360°", semanticSegments: ["只有部分正方形內角和是 360°"] },
@@ -640,9 +640,9 @@ export const ASSESSMENT_ITEMS: AssessmentItem[] = [
   },
   {
     id: "q28", category: "logic", difficulty: "medium",
-    stem: "如果警報開啟，指示燈就會閃。現在指示燈沒有閃。警報狀態是？",
-    semanticSegments: ["如果警報開啟，", "指示燈就會閃。", "現在指示燈沒有閃。", "警報狀態是？"],
-    stimulus: {"kind": "none"},
+    stem: "觀察指示燈狀態，警報狀態是？",
+    semanticSegments: ["觀察指示燈狀態，", "警報狀態是？"],
+    stimulus: { kind: "logic", lines: [["若警報開啟，則指示燈會閃。"], ["當前狀態：指示燈沒有閃。"]] },
     options: [
       { id: "off", alt: "必然未開啟", semanticSegments: ["必然未開啟"] },
       { id: "unknown", alt: "無法判斷", semanticSegments: ["無法判斷"] },
@@ -766,9 +766,9 @@ export const ASSESSMENT_ITEMS: AssessmentItem[] = [
   },
   {
     id: "q34", category: "logic", difficulty: "medium",
-    stem: "甲、乙、丙、丁四人比身高：甲比乙高，丙比甲高，丁比乙矮。四人中誰最矮？",
-    semanticSegments: ["甲、乙、丙、丁四人比身高：", "甲比乙高，", "丙比甲高，", "丁比乙矮。", "四人中誰最矮？"],
-    stimulus: {"kind": "none"},
+    stem: "比身高條件如下，四人中誰最矮？",
+    semanticSegments: ["比身高條件如下，", "四人中誰最矮？"],
+    stimulus: { kind: "logic", lines: [["甲比乙高、丙比甲高"], ["丁比乙矮"]] },
     options: [
       { id: "d", alt: "丁", semanticSegments: ["丁"] },
       { id: "b", alt: "乙", semanticSegments: ["乙"] },
@@ -829,9 +829,9 @@ export const ASSESSMENT_ITEMS: AssessmentItem[] = [
   },
   {
     id: "q37", category: "logic", difficulty: "medium",
-    stem: "五人排隊買票：D 排在最前面，A 排在 B 前面，C 排在 A 前面，E 排在 B 後面。誰排在最後面？",
-    semanticSegments: ["五人排隊買票：", "D 排在最前面，", "A 排在 B 前面，", "C 排在 A 前面，", "E 排在 B 後面。", "誰排在最後面？"],
-    stimulus: {"kind": "none"},
+    stem: "五人排隊買票，誰排在最後面？",
+    semanticSegments: ["五人排隊買票，", "誰排在最後面？"],
+    stimulus: { kind: "logic", lines: [["D 排最前面，A 排在 B 前面"], ["C 排在 A 前面，E 排在 B 後面"]] },
     options: [
       { id: "e", alt: "E", semanticSegments: ["E"] },
       { id: "b", alt: "B", semanticSegments: ["B"] },
@@ -892,9 +892,9 @@ export const ASSESSMENT_ITEMS: AssessmentItem[] = [
   },
   {
     id: "q40", category: "logic", difficulty: "medium",
-    stem: "週末如果下雨，就去圖書館。如果沒有下雨，就去運動場。這個週末沒有下雨。由此可必然得出？",
-    semanticSegments: ["週末如果下雨，就去圖書館。", "如果沒有下雨，就去運動場。", "這個週末沒有下雨。", "由此可必然得出？"],
-    stimulus: {"kind": "none"},
+    stem: "根據週末天氣，由此可必然得出？",
+    semanticSegments: ["根據週末天氣，", "由此可必然得出？"],
+    stimulus: { kind: "logic", lines: [["若下雨去圖書館，沒下雨去運動場。"], ["這個週末確定沒有下雨。"]] },
     options: [
       { id: "stadium", alt: "週末去運動場", semanticSegments: ["週末去運動場"] },
       { id: "library", alt: "週末去圖書館", semanticSegments: ["週末去圖書館"] },
@@ -1039,9 +1039,9 @@ export const ASSESSMENT_ITEMS: AssessmentItem[] = [
   },
   {
     id: "q47", category: "logic", difficulty: "medium",
-    stem: "如果小明通過考試，他就獲得證書。如果他獲得證書，他就能開始實習。事實上小明現在「不能開始實習」。由此可必然得出？",
-    semanticSegments: ["如果小明通過考試，他就獲得證書。", "如果他獲得證書，他就能開始實習。", "事實上小明現在「不能開始實習」。", "由此可必然得出？"],
-    stimulus: {"kind": "none"},
+    stem: "根據前後關聯，由此可必然得出？",
+    semanticSegments: ["根據前後關聯，", "由此可必然得出？"],
+    stimulus: { kind: "logic", lines: [["若通過考試則得證書，得證書則開始實習。"], ["事實：小明現在「不能開始實習」。"]] },
     options: [
       { id: "failed", alt: "小明沒有通過考試", semanticSegments: ["小明沒有通過考試"] },
       { id: "passed", alt: "小明通過了考試", semanticSegments: ["小明通過了考試"] },
@@ -1060,9 +1060,9 @@ export const ASSESSMENT_ITEMS: AssessmentItem[] = [
   },
   {
     id: "q48", category: "logic", difficulty: "medium",
-    stem: "四位學生入選條件如下：1. 若選 A，則必選 B2. 若選 C，則不能選 B3. C 與 D 必須至少選一人現在已知「確定選 A」。由此可知誰也必然入選？",
-    semanticSegments: ["四位學生入選條件如下：", "1. 若選 A，則必選 B", "2. 若選 C，則不能選 B", "3. C 與 D 必須至少選一人", "現在已知「確定選 A」。", "由此可知誰也必然入選？"],
-    stimulus: {"kind": "none"},
+    stem: "依入選條件，由此可知誰也必然入選？",
+    semanticSegments: ["依入選條件，", "由此可知誰也必然入選？"],
+    stimulus: { kind: "logic", lines: [["1. 若選 A 則必選 B；2. 若選 C 則不能選 B"], ["3. C 與 D 至少選一人；現確定已選 A"]] },
     options: [
       { id: "d", alt: "D 必然入選", semanticSegments: ["D 必然入選"] },
       { id: "c", alt: "C 必然入選", semanticSegments: ["C 必然入選"] },
@@ -1396,9 +1396,9 @@ export const ASSESSMENT_ITEMS: AssessmentItem[] = [
   },
   {
     id: "q64", category: "logic", difficulty: "hard",
-    stem: "甲、乙、丙三人中恰有一人說真話：甲說：「乙在說謊。」乙說：「丙在說謊。」丙說：「甲和乙都在說謊。」誰在說真話？",
-    semanticSegments: ["甲、乙、丙三人中恰有一人說真話：", "甲說：「乙在說謊。」", "乙說：「丙在說謊。」", "丙說：「甲和乙都在說謊。」", "誰在說真話？"],
-    stimulus: {"kind": "none"},
+    stem: "三人恰有一人說真話，誰在說真話？",
+    semanticSegments: ["三人恰有一人說真話，", "誰在說真話？"],
+    stimulus: { kind: "logic", lines: [["甲說：「乙在說謊。」"], ["乙說：「丙在說謊。」"], ["丙說：「甲和乙都在說謊。」"]] },
     options: [
       { id: "b", alt: "乙", semanticSegments: ["乙"] },
       { id: "a", alt: "甲", semanticSegments: ["甲"] },
@@ -1459,9 +1459,9 @@ export const ASSESSMENT_ITEMS: AssessmentItem[] = [
   },
   {
     id: "q67", category: "quantitative", difficulty: "hard",
-    stem: "代數符號滿足三個算式：★ ＋ ★ ＝ 12★ ＋ ▲ ＝ 10▲ ＋ ● ＝ 9問 ● 的數值是？",
-    semanticSegments: ["代數符號滿足三個算式：", "★ ＋ ★ ＝ 12", "★ ＋ ▲ ＝ 10", "▲ ＋ ● ＝ 9", "問 ● 的數值是？"],
-    stimulus: {"kind": "none"},
+    stem: "根據聯立算式，問 ● 的數值是？",
+    semanticSegments: ["根據聯立算式，", "問 ● 的數值是？"],
+    stimulus: { kind: "textRows", rows: ["★ ＋ ★ ＝ 12", "★ ＋ ▲ ＝ 10", "▲ ＋ ● ＝ 9"] },
     options: [
       { id: "five", alt: "5", semanticSegments: ["5"] },
       { id: "four", alt: "4", semanticSegments: ["4"] },
@@ -1711,9 +1711,9 @@ export const ASSESSMENT_ITEMS: AssessmentItem[] = [
   },
   {
     id: "q79", category: "logic", difficulty: "extreme",
-    stem: "評選中五位候選人滿足條件：1. A 與 B 至少一人入選2. 若 B 入選，則 C 必須入選3. 若 C 入選，則 E 不能入選4. 現在確定「E 已經入選」由此可知誰必然入選？",
-    semanticSegments: ["評選中五位候選人滿足條件：", "1. A 與 B 至少一人入選", "2. 若 B 入選，則 C 必須入選", "3. 若 C 入選，則 E 不能入選", "4. 現在確定「E 已經入選」", "由此可知誰必然入選？"],
-    stimulus: {"kind": "none"},
+    stem: "候選人滿足條件，誰必然入選？",
+    semanticSegments: ["候選人滿足條件，", "誰必然入選？"],
+    stimulus: { kind: "logic", lines: [["1. A 與 B 至少一人入選"], ["2. 若 B 入選則 C 必入選；若 C 入選則 E 不入選"], ["3. 現在確定「E 已經入選」"]] },
     options: [
       { id: "a", alt: "A 必然入選", semanticSegments: ["A 必然入選"] },
       { id: "b", alt: "B 必然入選", semanticSegments: ["B 必然入選"] },
@@ -1732,8 +1732,8 @@ export const ASSESSMENT_ITEMS: AssessmentItem[] = [
   },
   {
     id: "q80", category: "abstract", difficulty: "extreme",
-    stem: "三乘三拉丁方陣中，每行每列皆恰包含：形狀（圓、正方、三角）、填色（空心、條紋、實心）、圓點（上、中、下）。右下角必須是？",
-    semanticSegments: ["三乘三拉丁方陣中，", "每行每列皆恰包含：", "形狀（圓、正方、三角）、", "填色（空心、條紋、實心）、", "圓點（上、中、下）。", "右下角必須是？"],
+    stem: "三階拉丁方陣中，右下角缺漏圖形是？",
+    semanticSegments: ["三階拉丁方陣中，", "右下角缺漏圖形是？"],
     stimulus: {"kind": "visual", "visualKey": "matrix-latin-triple"},
     options: [
       { id: "correct", alt: "實心三角形，圓點在下方", semanticSegments: ["實心三角形，圓點在下方"] },
