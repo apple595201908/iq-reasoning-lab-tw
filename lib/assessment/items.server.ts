@@ -997,8 +997,8 @@ export const ASSESSMENT_ITEMS: AssessmentItem[] = [
   },
   {
     id: "q45", category: "verbal", difficulty: "medium",
-    stem: "哪組關係與「醫生：醫院」最相符？",
-    semanticSegments: ["哪組關係與「醫生：醫院」", "最相符？"],
+    stem: "哪組關係與「醫生：醫院」最不相符？",
+    semanticSegments: ["哪組關係與「醫生：醫院」", "最不相符？"],
     stimulus: {"kind": "none"},
     options: [
       { id: "driverPassenger", alt: "司機：乘客", semanticSegments: ["司機：乘客"] },
@@ -1007,14 +1007,14 @@ export const ASSESSMENT_ITEMS: AssessmentItem[] = [
       { id: "chefRestaurant", alt: "廚師：餐廳", semanticSegments: ["廚師：餐廳"] }
     ],
     correctOptionId: "driverPassenger",
-    distractorRationale: "其他三者均為「專業從業者：專屬執業場所」，司機之於乘客為服務對象關係。",
+    distractorRationale: "其他三者均為「專業從業者：專屬執業場所」，與「醫生：醫院」同構；司機之於乘客為服務者與對象關係，最不相符。",
     measurementTarget: "職業與工作場所之特定關係分類與異常排除。",
-    internalExplanation: "教師在學校、法官在法院、廚師在餐廳皆為人員與場所關係，司機與乘客是人與人之互動關係，本質不同。",
+    internalExplanation: "「醫生：醫院」、「教師：學校」、「法官：法院」、「廚師：餐廳」皆為人員與場所關係；「司機：乘客」為人員與服務對象之互動關係，結構最不相符。",
     suggestedTimeSeconds: 13,
     provisionalA: 1.2,
-    provisionalB: 1.4,
+    provisionalB: 0.35,
     provisionalC: 0.25,
-    accessibilityAlt: "沒有額外圖形。",
+    accessibilityAlt: "文字題目：醫生比醫院，比對四個關係選項，選出最不相符者。",
   },
   {
     id: "q46", category: "abstract", difficulty: "medium",
@@ -1375,9 +1375,9 @@ export const ASSESSMENT_ITEMS: AssessmentItem[] = [
   },
   {
     id: "q63", category: "spatial", difficulty: "hard",
-    stem: "正方體骰子朝向如題，右側面為幾點？",
-    semanticSegments: ["正方體骰子朝向如題，", "右側面為幾點？"],
-    stimulus: { kind: "logic", lines: [["標準骰子六面 1～6，相對面點數和皆為 7"], ["當前狀態：1 點朝上、2 點朝前"]] },
+    stem: "立方體向左轉 90° 後，正面是幾點？",
+    semanticSegments: ["立方體向左轉 90° 後，", "正面是幾點？"],
+    stimulus: { kind: "logic", lines: [["立方體相對面點數和為 7（1對6、2對5、3對4）"], ["現「1 點在頂面、2 點在正面、4 點在右面」"]] },
     options: [
       { id: "four", alt: "4 點", semanticSegments: ["4 點"] },
       { id: "three", alt: "3 點", semanticSegments: ["3 點"] },
@@ -1385,14 +1385,14 @@ export const ASSESSMENT_ITEMS: AssessmentItem[] = [
       { id: "six", alt: "6 點", semanticSegments: ["6 點"] }
     ],
     correctOptionId: "four",
-    distractorRationale: "5 點在背面（2的對面）；6 點在底面（1的對面）；3 點在左側面（標準骰子 1-2-3 逆時針或 1-2-4 順時針手性）。",
-    measurementTarget: "三維立方體相對面不變性與空間三軸視角轉換。",
-    internalExplanation: "相對面和為 7：1 的對面是 6（底面），2 的對面是 5（背面）。依標準右手系骰子拓撲，當 1 點在上、2 點在正面時，右側面必為 4 點（左側為 3 點）。",
+    distractorRationale: "2 點轉至左側面；3 點（原左面）轉至背面；5 點（原背面）轉至右側面；頂面 1 與底面 6 保持不變。",
+    measurementTarget: "三維立方體三軸旋轉與空間座標系心智變換。",
+    internalExplanation: "初始狀態頂面 1、正面 2、右面 4（左面為 3、背面為 5）。水平向左轉 90 度後，原右側面的 4 點旋轉至正面，故正面為 4 點。",
     suggestedTimeSeconds: 22,
     provisionalA: 1.8,
     provisionalB: 2.3,
     provisionalC: 0.25,
-    accessibilityAlt: "沒有額外圖形。",
+    accessibilityAlt: "立方體相對面和為7，頂面1、正面2、右面4，詢問水平向左轉90度後正面點數。",
   },
   {
     id: "q64", category: "logic", difficulty: "hard",
@@ -1440,7 +1440,7 @@ export const ASSESSMENT_ITEMS: AssessmentItem[] = [
     id: "q66", category: "verbal", difficulty: "hard",
     stem: "依照相同歷程邏輯，問號處應填入？",
     semanticSegments: ["依照相同歷程邏輯，", "問號處應填入？"],
-    stimulus: { kind: "logic", lines: [["植物歷程：萌芽 → 成長 → 繁盛 → 凋零"], ["工作歷程：起草 → 修改 → 定稿 → ？"]] },
+    stimulus: { kind: "logic", lines: [["植物歷程：萌芽 → 成長 → 開花 → 結果"], ["工作歷程：起草 → 修改 → 定稿 → ？"]] },
     options: [
       { id: "publish", alt: "發布", semanticSegments: ["發布"] },
       { id: "conceive", alt: "構思", semanticSegments: ["構思"] },
@@ -1448,14 +1448,14 @@ export const ASSESSMENT_ITEMS: AssessmentItem[] = [
       { id: "suspend", alt: "擱置", semanticSegments: ["擱置"] }
     ],
     correctOptionId: "publish",
-    distractorRationale: "構思為起草前的起點；銷毀為異常中斷；擱置為非完成態停頓。",
+    distractorRationale: "構思為起草前的起點；銷毀與擱置屬於異常中斷，唯有發布對應定稿後之最終成熟產出（結果）。",
     measurementTarget: "歷程階段時間向量終局性關係映射。",
-    internalExplanation: "起草（初構）→ 修改（優化）→ 定稿（成熟）→ 發布（公開實行），對應生命之發芽、生長、繁茂至最終成熟亮相階段。",
+    internalExplanation: "起草（初構）→ 修改（優化）→ 定稿（成熟）→ 發布（產出亮相），對應植物發芽、生長、開花至最終結成果實之完整正向產出歷程。",
     suggestedTimeSeconds: 16,
     provisionalA: 1.7,
     provisionalB: 2.45,
     provisionalC: 0.25,
-    accessibilityAlt: "沒有額外圖形。",
+    accessibilityAlt: "雙列歷程對比：植物生長各階段對比工作各階段。",
   },
   {
     id: "q67", category: "quantitative", difficulty: "hard",
@@ -1606,8 +1606,8 @@ export const ASSESSMENT_ITEMS: AssessmentItem[] = [
   },
   {
     id: "q74", category: "workingMemory", difficulty: "extreme",
-    stem: "字母開頭交替排序，排序結果是？",
-    semanticSegments: ["字母開頭交替排序，", "排序結果是？"],
+    stem: "字母升冪、數字降冪交替排列，結果是？",
+    semanticSegments: ["字母升冪、數字降冪", "交替排列，結果是？"],
     stimulus: {"kind": "memory", "values": ["8", "D", "3", "A", "6", "F", "1", "C"], "durationMs": 15500},
     options: [
       { id: "correct", alt: "A8 C6 D3 F1", semanticSegments: ["A8 C6 D3 F1"] },
@@ -1616,9 +1616,9 @@ export const ASSESSMENT_ITEMS: AssessmentItem[] = [
       { id: "numbersUp", alt: "A1 C3 D6 F8", semanticSegments: ["A1 C3 D6 F8"] }
     ],
     correctOptionId: "correct",
-    distractorRationale: "數字中間兩項降冪顛倒；字母反向排序；數字方向錯成升冪排列。",
-    measurementTarget: "八項高負荷多維度提取、雙軌排序與交錯重組極限工作記憶操作。",
-    internalExplanation: "數字降冪為 8, 6, 3, 1；字母升冪為 A, C, D, F；以字母起始交錯重組為 A8 C6 D3 F1。",
+    distractorRationale: "A8 C3 D6 F1 數字中間兩項降冪顛倒；F8 D6 C3 A1 字母誤採降冪反向排序；A1 C3 D6 F8 數字方向誤採升冪排列。",
+    measurementTarget: "八項高負荷多維度提取、雙軌排序（字母升冪、數字降冪）與交錯重組工作記憶操作。",
+    internalExplanation: "字母由小到大升冪為 A, C, D, F；數字由大到小降冪為 8, 6, 3, 1；以字母開頭交錯重組為 A8 C6 D3 F1。",
     suggestedTimeSeconds: 34,
     provisionalA: 2.0,
     provisionalB: 3.0,
