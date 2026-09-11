@@ -117,7 +117,13 @@ export function answerPatternForToken(token: string): Choice[] {
 
 export function publicAssessmentForToken(token: string): PublicItem[] {
   const pattern = answerPatternForToken(token);
-  return ASSESSMENT_ITEMS.map((item, index) => toPublicItem(item, pattern[index], token));
+  const items = ASSESSMENT_ITEMS.map((item, index) => toPublicItem(item, pattern[index], token));
+  const random = seededRandom(`${token}-item-order`);
+  for (let index = items.length - 1; index > 0; index -= 1) {
+    const swapWith = Math.floor(random() * (index + 1));
+    [items[index], items[swapWith]] = [items[swapWith], items[index]];
+  }
+  return items;
 }
 
 export function publicPracticeItems(): PracticeItem[] {

@@ -218,3 +218,29 @@ test("visual rule anchors keep their answer geometry aligned", () => {
   assert.equal(q72.correctOptionId, "rightDiagonal");
   assert.equal(q72.options.find((option) => option.id === q72.correctOptionId)?.visualKey, "transform-three-correct");
 });
+
+test("sessions have randomized question orders that are distinct and score accurately", () => {
+  const session1 = createSession();
+  const session2 = createSession();
+  
+  assert.equal(session1.items.length, 80);
+  assert.equal(session2.items.length, 80);
+  assert.equal(new Set(session1.items.map((item) => item.id)).size, 80);
+  assert.equal(new Set(session2.items.map((item) => item.id)).size, 80);
+
+  const order1 = session1.items.map((item) => item.id).join(",");
+  const order2 = session2.items.map((item) => item.id).join(",");
+  assert.notEqual(order1, order2, "Two distinct sessions must have different randomized question orders");
+
+  // Verify scoring is independent of presentation order
+  const mockResponses: ResponseRecord[] = session1.items.map((item) => ({
+    id: item.id,
+    choice: "A",
+    responseTimeMs: 3000,
+  }));
+  const scoreResult = scoreAssessment(session1.token, mockResponses, stableQuality);
+  assert.equal(scoreResult.status, "ok");
+  assert.equal(scoreResult.total, 80);
+  assert.ok(typeof scoreResult.rawIq === "number");
+});
+

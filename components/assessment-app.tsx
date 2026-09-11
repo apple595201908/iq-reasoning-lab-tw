@@ -28,7 +28,7 @@ type Phase = "boot" | "home" | "practice" | "test" | "scoring" | "result" | "inf
 
 type StoredProgress = {
   storageVersion: 1;
-  phase: "practice" | "test" | "scoring" | "result";
+  phase: "home" | "practice" | "test" | "scoring" | "result";
   session: SessionData;
   practiceIndex: number;
   itemIndex: number;
@@ -55,16 +55,43 @@ function DuckMark() {
   return <Image className="progress-duck" src="/ducks/progress.png" width={28} height={30} alt="" aria-hidden="true" priority />;
 }
 
-function HomeScreen({ onStart, onInfo, loading, error }: { onStart: () => void; onInfo: () => void; loading: boolean; error?: string }) {
+function HomeScreen({
+  onStart,
+  onResume,
+  hasUnfinished,
+  unfinishedNumber,
+  onInfo,
+  loading,
+  error,
+}: {
+  onStart: () => void;
+  onResume?: () => void;
+  hasUnfinished?: boolean;
+  unfinishedNumber?: number;
+  onInfo: () => void;
+  loading: boolean;
+  error?: string;
+}) {
   return (
     <main className="home-screen">
       <div className="home-card">
         <div className="beta-chip">🦆 Beta・非臨床</div>
         <h1><span>你的 IQ</span><span>有多高？</span></h1>
         <p className="home-lead">80 題，約 20～25 分鐘。<br />每題請選 A、B、C 或 D。</p>
-        <button className="primary-button" type="button" onClick={onStart} disabled={loading}>
-          {loading ? "準備題目中…" : "開始測驗"}
-        </button>
+        {hasUnfinished && onResume ? (
+          <div className="home-btn-group">
+            <button className="primary-button" type="button" onClick={onResume} disabled={loading}>
+              {`繼續測驗（第 ${unfinishedNumber ?? 1}／80 題）`}
+            </button>
+            <button className="secondary-button" type="button" onClick={onStart} disabled={loading}>
+              {loading ? "準備題目中…" : "重新開始新測驗"}
+            </button>
+          </div>
+        ) : (
+          <button className="primary-button" type="button" onClick={onStart} disabled={loading}>
+            {loading ? "準備題目中…" : "開始測驗"}
+          </button>
+        )}
         {error ? <p className="inline-error" role="alert">{error}</p> : null}
         <button className="text-button" type="button" onClick={onInfo}>測驗方法與限制</button>
         <p className="home-note">這是非臨床的線上認知推理推估。<br />正式智力評估仍需由合格專業人員施測。</p>
@@ -74,19 +101,128 @@ function HomeScreen({ onStart, onInfo, loading, error }: { onStart: () => void; 
   );
 }
 
-function ProgressHeader({ current, total, practice }: { current: number; total: number; practice?: boolean }) {
+function ProgressHeader({
+  current,
+  total,
+  practice,
+  onPause,
+  onHome,
+}: {
+  current: number;
+  total: number;
+  practice?: boolean;
+  onPause?: () => void;
+  onHome?: () => void;
+}) {
   const percentage = ((current - (practice ? 0 : 1)) / total) * 100;
   return (
     <header className="test-header">
       <div className="progress-meta">
         <DuckMark />
         <span>{practice ? "練習" : `${current}／${total}`}</span>
-        {practice ? <span>{current}／{total}</span> : null}
+        {practice ? <span>{current}／${total}</span> : null}
+        <div className="header-actions">
+          {onPause ? (
+            <button
+              type="button"
+              className="header-btn"
+              onClick={onPause}
+              title="暫停測驗"
+              aria-label="暫停測驗"
+            >
+              <span className="btn-icon">⏸</span>
+              <span className="btn-label">暫停</span>
+            </button>
+          ) : null}
+          {onHome ? (
+            <button
+              type="button"
+              className="header-btn"
+              onClick={onHome}
+              title="回到首頁（進度自動保存）"
+              aria-label="回到首頁"
+            >
+              <span className="btn-icon">🏠</span>
+              <span className="btn-label">首頁</span>
+            </button>
+          ) : null}
+        </div>
       </div>
       <div className="progress-track" role="progressbar" aria-valuemin={0} aria-valuemax={total} aria-valuenow={current - (practice ? 0 : 1)} aria-label={practice ? "練習進度" : "測驗進度"}>
         <span style={{ width: `${Math.max(3, percentage)}%` }} />
       </div>
     </header>
+  );
+}
+
+function PauseModal({
+  current,
+  total,
+  onResume,
+  onHome,
+  onRestart,
+}: {
+  current: number;
+  total: number;
+  onResume: () => void;
+  onHome: () => void;
+  onRestart: () => void;
+}) {
+  const [confirmRestart, setConfirmRestart] = useState(false);
+
+  return (
+    <div className="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="pause-title">
+      <div className="pause-modal-card">
+        <div className="pause-duck-wrapper">
+          <Image
+            src="/ducks/peek.png"
+            width={100}
+            height={82}
+            alt="探頭小鴨"
+            className="pause-duck-img"
+            priority
+          />
+        </div>
+        <span className="beta-chip">⏸ 測驗已暫停</span>
+        <h2 id="pause-title">休息一下，隨時回來</h2>
+        <div className="pause-progress-pill">
+          目前進度：第 {current}／{total} 題
+        </div>
+        <p className="pause-desc">
+          作答計時已暫停凍結，暫停期間<strong>不計入反應時間</strong>與評估指標，請放鬆休息。進度已為你妥善保存。
+        </p>
+
+        {confirmRestart ? (
+          <div className="pause-confirm-box">
+            <p>確定要重新開始？目前的作答紀錄將被清除，並重新隨機排列題序。</p>
+            <div className="pause-confirm-actions">
+              <button type="button" className="pause-btn-secondary" onClick={() => setConfirmRestart(false)}>
+                返回
+              </button>
+              <button type="button" className="pause-btn-confirm-danger" onClick={onRestart}>
+                確定重開
+              </button>
+            </div>
+          </div>
+        ) : (
+          <div className="pause-actions">
+            <button type="button" className="pause-btn-primary" onClick={onResume}>
+              ▶ 繼續測驗
+            </button>
+            <button type="button" className="pause-btn-secondary" onClick={onHome}>
+              🏠 回到首頁（保存進度）
+            </button>
+            <button
+              type="button"
+              className="pause-btn-danger"
+              onClick={() => setConfirmRestart(true)}
+            >
+              ↺ 重新開始（隨機新題序）
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
   );
 }
 
@@ -112,7 +248,26 @@ function ChoiceButton({ item, choice, disabled, pressed, onChoose }: { item: Pub
   );
 }
 
-function QuestionScreen({ item, current, total, practice, locked, pressedChoice, memoryCycle, memoryReady, timingReady, explanation, onChoose, onMemoryReady, onContinue }: {
+function QuestionScreen({
+  item,
+  current,
+  total,
+  practice,
+  locked,
+  pressedChoice,
+  memoryCycle,
+  memoryReady,
+  timingReady,
+  explanation,
+  isPaused,
+  onChoose,
+  onMemoryReady,
+  onContinue,
+  onPause,
+  onResume,
+  onHome,
+  onRestart,
+}: {
   item: PublicItem;
   current: number;
   total: number;
@@ -123,14 +278,19 @@ function QuestionScreen({ item, current, total, practice, locked, pressedChoice,
   memoryReady: boolean;
   timingReady: boolean;
   explanation?: string;
+  isPaused?: boolean;
   onChoose: (choice: Choice) => void;
   onMemoryReady: () => void;
   onContinue?: () => void;
+  onPause?: () => void;
+  onResume?: () => void;
+  onHome?: () => void;
+  onRestart?: () => void;
 }) {
   const isMemory = item.stimulus.kind === "memory";
   return (
     <main className="question-screen">
-      <ProgressHeader current={current} total={total} practice={practice} />
+      <ProgressHeader current={current} total={total} practice={practice} onPause={onPause} onHome={onHome} />
       <section className="question-card" aria-labelledby="question-title">
         <h1 id="question-title"><SemanticText segments={item.semanticSegments} /></h1>
         <StimulusRenderer stimulus={item.stimulus} accessibilityAlt={item.accessibilityAlt} memoryCycle={memoryCycle} onMemoryReady={onMemoryReady} />
@@ -144,17 +304,20 @@ function QuestionScreen({ item, current, total, practice, locked, pressedChoice,
         ) : (
           <>
             {(["A", "B", "C", "D"] as Choice[]).map((choice) => (
-              <ChoiceButton key={choice} item={item} choice={choice} disabled={locked || !timingReady || (isMemory && !memoryReady)} pressed={pressedChoice === choice} onChoose={onChoose} />
+              <ChoiceButton key={choice} item={item} choice={choice} disabled={locked || Boolean(isPaused) || !timingReady || (isMemory && !memoryReady)} pressed={pressedChoice === choice} onChoose={onChoose} />
             ))}
             {isMemory && !memoryReady ? <p className="memory-prompt" aria-live="polite">請先記住畫面中的項目</p> : null}
           </>
         )}
       </div>
+      {isPaused && onResume && onHome && onRestart ? (
+        <PauseModal current={current} total={total} onResume={onResume} onHome={onHome} onRestart={onRestart} />
+      ) : null}
     </main>
   );
 }
 
-function ResultScreen({ result, onRetest, onInfo }: { result: ScoreResult; onRetest: () => void; onInfo: () => void }) {
+function ResultScreen({ result, onRetest, onHome, onInfo }: { result: ScoreResult; onRetest: () => void; onHome: () => void; onInfo: () => void }) {
   const [shareState, setShareState] = useState("分享結果");
   const [confirmRetest, setConfirmRetest] = useState(false);
 
@@ -255,6 +418,7 @@ function ResultScreen({ result, onRetest, onInfo }: { result: ScoreResult; onRet
       <div className="result-actions">
         <button type="button" onClick={() => setConfirmRetest(true)}>再測一次</button>
         <button className="accent" type="button" onClick={share}>{shareState}</button>
+        <button type="button" onClick={onHome}>回到首頁</button>
         <button type="button" onClick={onInfo}>查看測驗說明</button>
       </div>
     </main>
@@ -292,8 +456,10 @@ export default function AssessmentApp() {
   const [timingReady, setTimingReady] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string>();
+  const [isPaused, setIsPaused] = useState(false);
   const infoOrigin = useRef<"home" | "result">("home");
   const questionStart = useRef(0);
+  const pauseStart = useRef<number | undefined>(undefined);
   const hiddenStart = useRef<number | undefined>(undefined);
   const hiddenAccumulated = useRef(0);
 
@@ -318,6 +484,53 @@ export default function AssessmentApp() {
     }
   }, []);
 
+  const handlePause = useCallback(() => {
+    if (isPaused) return;
+    pauseStart.current = performance.now();
+    setIsPaused(true);
+  }, [isPaused]);
+
+  const handleResume = useCallback(() => {
+    if (!isPaused) return;
+    if (pauseStart.current !== undefined) {
+      const duration = Math.max(0, performance.now() - pauseStart.current);
+      hiddenAccumulated.current += duration;
+      pauseStart.current = undefined;
+    }
+    setIsPaused(false);
+  }, [isPaused]);
+
+  const handleReturnHome = useCallback(() => {
+    if (isPaused && pauseStart.current !== undefined) {
+      const duration = Math.max(0, performance.now() - pauseStart.current);
+      hiddenAccumulated.current += duration;
+      pauseStart.current = undefined;
+    }
+    setIsPaused(false);
+    setPhase("home");
+  }, [isPaused]);
+
+  const handleRestart = useCallback(() => {
+    setIsPaused(false);
+    pauseStart.current = undefined;
+    localStorage.removeItem(STORAGE_KEY);
+    void start();
+  }, []);
+
+  const handleHomeFromResult = useCallback(() => {
+    localStorage.removeItem(STORAGE_KEY);
+    setSession(undefined);
+    setResponses([]);
+    setResult(undefined);
+    setPhase("home");
+  }, []);
+
+  const resumeTest = useCallback(() => {
+    if (session) {
+      setPhase(practiceIndex < session.practice.length && responses.length === 0 ? "practice" : "test");
+    }
+  }, [session, practiceIndex, responses.length]);
+
   useEffect(() => {
     queueMicrotask(() => {
       try {
@@ -339,6 +552,8 @@ export default function AssessmentApp() {
           setPhase("result");
         } else if (stored.phase === "scoring" && stored.responses.length === (stored.session?.items?.length ?? 80)) {
           void submitScore(stored.session, stored.responses, restoredQuality);
+        } else if (stored.phase === "home") {
+          setPhase("home");
         } else {
           setPhase(stored.phase === "practice" ? "practice" : "test");
         }
@@ -350,7 +565,7 @@ export default function AssessmentApp() {
   }, [submitScore]);
 
   useEffect(() => {
-    if (!session || !["practice", "test", "scoring", "result"].includes(phase)) return;
+    if (!session || !["home", "practice", "test", "scoring", "result"].includes(phase)) return;
     const stored: StoredProgress = {
       storageVersion: 1,
       phase: phase as StoredProgress["phase"],
@@ -390,7 +605,7 @@ export default function AssessmentApp() {
 
   useEffect(() => {
     const onVisibilityChange = () => {
-      if (phase !== "test") return;
+      if (phase !== "test" || isPaused) return;
       const now = performance.now();
       if (document.hidden) {
         hiddenStart.current = now;
@@ -410,7 +625,7 @@ export default function AssessmentApp() {
     };
     document.addEventListener("visibilitychange", onVisibilityChange);
     return () => document.removeEventListener("visibilitychange", onVisibilityChange);
-  }, [phase, currentItem]);
+  }, [phase, currentItem, isPaused]);
 
   const start = async () => {
     setLoading(true);
@@ -434,7 +649,7 @@ export default function AssessmentApp() {
   };
 
   const choose = (choice: Choice) => {
-    if (!currentItem || !session || locked || !timingReady || (currentItem.stimulus.kind === "memory" && !memoryReady)) return;
+    if (!currentItem || !session || locked || !timingReady || isPaused || (currentItem.stimulus.kind === "memory" && !memoryReady)) return;
     setLocked(true);
     setPressedChoice(choice);
     const elapsed = Math.max(0, performance.now() - questionStart.current - hiddenAccumulated.current);
@@ -468,7 +683,12 @@ export default function AssessmentApp() {
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
-      if (!["practice", "test"].includes(phase) || practiceExplanation) return;
+      if (event.key === "Escape" && ["practice", "test"].includes(phase)) {
+        if (isPaused) handleResume();
+        else handlePause();
+        return;
+      }
+      if (isPaused || !["practice", "test"].includes(phase) || practiceExplanation) return;
       if (event.key.toLowerCase() === "a") choose("A");
       if (event.key.toLowerCase() === "b") choose("B");
       if (event.key.toLowerCase() === "c") choose("C");
@@ -489,29 +709,53 @@ export default function AssessmentApp() {
     void start();
   };
 
+  const hasUnfinished = Boolean(session && session.items.length > 0 && phase === "home" && responses.length > 0 && responses.length < session.items.length);
+  const unfinishedNumber = responses.length + 1;
+
   const loadingMessage = useMemo(() => phase === "scoring" ? "正在估計能力與參考區間…" : "載入中…", [phase]);
 
   if (phase === "boot" || phase === "scoring") return <main className="status-screen"><DuckMark /><p>{loadingMessage}</p></main>;
-  if (phase === "home") return <HomeScreen onStart={() => void start()} onInfo={() => openInfo("home")} loading={loading} error={error} />;
+  if (phase === "home") {
+    return (
+      <HomeScreen
+        onStart={() => void start()}
+        onResume={resumeTest}
+        hasUnfinished={hasUnfinished}
+        unfinishedNumber={unfinishedNumber}
+        onInfo={() => openInfo("home")}
+        loading={loading}
+        error={error}
+      />
+    );
+  }
   if (phase === "info") return <InfoScreen onBack={() => setPhase(infoOrigin.current === "result" ? "result" : "home")} />;
   if ((phase === "practice" || phase === "test") && currentItem && session) {
-    return <QuestionScreen
-      item={currentItem}
-      current={phase === "practice" ? practiceIndex + 1 : itemIndex + 1}
-      total={phase === "practice" ? session.practice.length : session.items.length}
-      practice={phase === "practice"}
-      locked={locked}
-      pressedChoice={pressedChoice}
-      memoryCycle={memoryCycle}
-      memoryReady={memoryReady}
-      timingReady={timingReady}
-      explanation={practiceExplanation}
-      onChoose={choose}
-      onMemoryReady={onMemoryReady}
-      onContinue={continuePractice}
-    />;
+    return (
+      <QuestionScreen
+        item={currentItem}
+        current={phase === "practice" ? practiceIndex + 1 : itemIndex + 1}
+        total={phase === "practice" ? session.practice.length : session.items.length}
+        practice={phase === "practice"}
+        locked={locked}
+        pressedChoice={pressedChoice}
+        memoryCycle={memoryCycle}
+        memoryReady={memoryReady}
+        timingReady={timingReady}
+        explanation={practiceExplanation}
+        isPaused={isPaused}
+        onChoose={choose}
+        onMemoryReady={onMemoryReady}
+        onContinue={continuePractice}
+        onPause={handlePause}
+        onResume={handleResume}
+        onHome={handleReturnHome}
+        onRestart={handleRestart}
+      />
+    );
   }
-  if (phase === "result" && result) return <ResultScreen result={result} onRetest={retest} onInfo={() => openInfo("result")} />;
+  if (phase === "result" && result) {
+    return <ResultScreen result={result} onRetest={retest} onHome={handleHomeFromResult} onInfo={() => openInfo("result")} />;
+  }
   return (
     <main className="status-screen error-screen">
       <h1>結果還沒有算完</h1>
