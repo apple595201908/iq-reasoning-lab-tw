@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>職場自信程度心理測驗 - 50 題專業評測</title>
+  <meta name="description" content="專為現代工作者打造的職場自信度評測，50題生活化情境問答，深入分析發言主張、未知挑戰、抗挫韌性、界線溝通與自我認同五大核心維度。">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- 頂部導航 -->
+  <header class="top-nav">
+    <div class="nav-container">
+      <a href="#" class="brand-logo" onclick="location.reload(); return false;">
+        <span class="brand-icon">💼</span>
+        <span>職場自信度評測所</span>
+      </a>
+      <div class="nav-actions">
+        <span class="shortcut-indicator-badge">💡 支援鍵盤數字鍵 1~4 快速作答</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- 主內容容器 -->
+  <main class="main-content">
+    <div class="view-container">
+
+      <!-- =========================================================
+           1. 迎賓首頁 (Hero View)
+           ========================================================= -->
+      <section id="hero-view" class="view-panel active">
+        <div class="hero-card">
+          <div class="hero-tag">✨ 50 題精準深度診斷</div>
+          <h1 class="hero-title">測驗你的職場自信指數</h1>
+          <p class="hero-subtitle">
+            你是會議中侃侃而談的定海神針，還是經常害怕出錯、默默吞忍的內耗小陀螺？<br>
+            以口語生活化的職場情境，帶你探索心底深處的職場底氣與成長盲點。
+          </p>
+
+          <div class="hero-stats-grid">
+            <div class="stat-item">
+              <span class="stat-number">50</span>
+              <span class="stat-label">生活化情境題</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">5</span>
+              <span class="stat-label">大核心維度剖析</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">~6</span>
+              <span class="stat-label">分鐘輕鬆完成</span>
+            </div>
+          </div>
+
+          <div class="hero-dimensions-preview">
+            <div class="dimensions-title">涵蓋職場五大關鍵底氣面向</div>
+            <div class="dimensions-pills">
+              <span class="dim-pill">🗣️ 表達與發言主張</span>
+              <span class="dim-pill">🚀 挑戰與主動擔當</span>
+              <span class="dim-pill">🛡️ 抗挫復原與面對批評</span>
+              <span class="dim-pill">⚖️ 向上溝通與界線設定</span>
+              <span class="dim-pill">🌟 自我價值與成就肯定</span>
+            </div>
+          </div>
+
+          <div class="hero-actions">
+            <button id="btn-start-quiz" class="btn-hero-start" type="button">
+              開始測驗 ➔
+            </button>
+            <button id="btn-resume-quiz" class="btn-resume" type="button">
+              繼續未完成測驗
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- =========================================================
+           2. 作答主畫面 (Quiz View)
+           ========================================================= -->
+      <section id="quiz-view" class="view-panel">
+        <div class="quiz-card">
+          <!-- 頂部進度狀態 -->
+          <div class="quiz-header">
+            <div class="progress-meta-row">
+              <div class="question-counter">
+                第 <span id="current-q-num">1</span> <span id="total-q-num" class="total-count">/ 50 題</span>
+              </div>
+              <div id="progress-percent-text" class="progress-percentage">2%</div>
+            </div>
+            <div class="progress-bar-track">
+              <div id="quiz-progress-fill" class="progress-bar-fill"></div>
+            </div>
+          </div>
+
+          <!-- 維度標籤 -->
+          <div id="dimension-badge-text" class="dimension-badge">
+            🗣️ <span>表達與發言主張</span>
+          </div>
+
+          <!-- 題目本體 (大字體、一目了然) -->
+          <div class="question-title-box">
+            <h2 id="quiz-question-text" class="question-text">
+              在跨部門或大型會議上，就算大家都不說話，只要我有想法，我就敢當第一個開口發言的人。
+            </h2>
+          </div>
+
+          <!-- 四個超大選項卡片 -->
+          <div id="quiz-options-container" class="options-grid">
+            <!-- 由 app.js 動態渲染 -->
+          </div>
+
+          <!-- 底部控制導航列 -->
+          <div class="quiz-footer-nav">
+            <button id="btn-prev-q" class="nav-btn btn-secondary" type="button">
+              ⬅ 上一題
+            </button>
+            <button id="btn-open-jump-modal" class="btn-jump-menu" type="button">
+              📋 題目總覽 / 跳題
+            </button>
+            <button id="btn-next-q" class="nav-btn btn-primary" type="button">
+              下一題 ➔
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- =========================================================
+           3. 分析結果報告 (Results View)
+           ========================================================= -->
+      <section id="results-view" class="view-panel">
+        <div class="results-card">
+          <!-- 頂部型格英雄區 -->
+          <div class="result-header-banner">
+            <div id="result-badge" class="result-badge-pill">👑 巔峰領航型</div>
+            <h2 id="result-archetype-name" class="result-archetype-name">職場沉著大將</h2>
+            <div id="result-tagline" class="result-tagline">核心穩定 ‧ 勇於開拓 ‧ 邊界分明</div>
+
+            <div class="score-overview-box">
+              <span id="result-score-value" class="score-main-value">178</span>
+              <span class="score-max-value">/ 200 分</span>
+            </div>
+            <div id="result-score-percent" class="score-desc-text">（職場底氣指標：86%）</div>
+          </div>
+
+          <!-- 型格深度綜述 -->
+          <div id="result-summary-text" class="summary-box">
+            你的職場自信已達到極度成熟且穩固的境界...
+          </div>
+
+          <!-- 五大維度長條分析圖表 -->
+          <div class="section-block">
+            <h3 class="section-heading">📊 五大職場核心維度分析</h3>
+            <div id="result-dimensions-list" class="dimension-meters-list">
+              <!-- 由 JS 繪製五大長條圖 -->
+            </div>
+          </div>
+
+          <!-- 弱項專屬突破焦點 -->
+          <div id="lowest-dim-tip-box" class="action-tips-card" style="border-left: 6px solid var(--accent-gold); background-color: #fffdfa;">
+            <h3 id="lowest-dim-title" class="section-heading" style="color: #b45309; margin-bottom: 12px;">
+              🎯 優先突破焦點
+            </h3>
+            <p id="lowest-dim-text" style="font-size: 1.2rem; line-height: 1.7; color: #78350f;">
+              <!-- 由 JS 填寫 -->
+            </p>
+          </div>
+
+          <!-- 職場高光優勢 vs 潛在心智陷阱 -->
+          <div class="traits-grid">
+            <div class="trait-card strengths">
+              <h4 class="trait-card-title">🌟 你的職場高光亮點</h4>
+              <ul id="result-strengths-list" class="trait-list">
+                <!-- 由 JS 渲染 -->
+              </ul>
+            </div>
+            <div class="trait-card pitfalls">
+              <h4 class="trait-card-title">⚠️ 需留意的潛在心智陷阱</h4>
+              <ul id="result-pitfalls-list" class="trait-list">
+                <!-- 由 JS 渲染 -->
+              </ul>
+            </div>
+          </div>
+
+          <!-- 專屬 3 步驟實踐建議 -->
+          <div class="section-block">
+            <h3 class="section-heading">🚀 專屬自信升級 3 步修煉法</h3>
+            <div class="action-tips-card">
+              <ul id="result-action-tips-list" class="tips-list">
+                <!-- 由 JS 渲染 -->
+              </ul>
+            </div>
+          </div>
+
+          <!-- 50 題答案檢視摺疊區 -->
+          <div class="section-block">
+            <button id="btn-toggle-review" class="review-toggle-btn" type="button">
+              展開 50 題完整作答紀錄 ▼
+            </button>
+            <div id="review-answers-box" class="review-answers-container">
+              <!-- 由 JS 動態展開 -->
+            </div>
+          </div>
+
+          <!-- 操作按鈕列 -->
+          <div class="result-actions-row">
+            <button id="btn-share-result" class="btn-result-action btn-primary" type="button">
+              📋 複製結果摘要
+            </button>
+            <button id="btn-print-result" class="btn-result-action btn-secondary" type="button">
+              🖨️ 列印 / 另存 PDF
+            </button>
+            <button id="btn-restart-quiz" class="btn-result-action btn-secondary" type="button" style="color: var(--accent-rose);">
+              🔄 重新測驗
+            </button>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- 跳題總覽 Modal -->
+  <div id="jump-modal-overlay" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">📋 題目總覽與快速跳轉</h3>
+        <button id="btn-close-modal" class="btn-modal-close" type="button">✕</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: 1.05rem; color: var(--text-secondary); margin-bottom: 16px;">
+          藍色代表已作答，點擊任何題號即可直接跳轉該題修改或作答：
+        </p>
+        <div id="modal-jump-grid" class="jump-grid">
+          <!-- 由 JS 渲染 1~50 題號按鈕 -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 頁尾 -->
+  <footer class="site-footer">
+    <p>© 職場自信程度心理測驗研究所 ‧ 依據現代認知心理學與職場溝通模型設計</p>
+  </footer>
+
+  <!-- 引入題目資料庫與互動程式 -->
+  <script src="questions.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

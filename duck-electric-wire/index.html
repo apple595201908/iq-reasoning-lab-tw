@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#f8fafc">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  
+  <title>鴨鴨高壓急急棒 ⚡ 十萬伏特大逃亡 (Super Duck Buzz Wire)</title>
+  <meta name="description" content="手機專屬！鴨鴨高壓急急棒：固定速度自動捲軸、手指自由拖動、8大類創意動態機關、一命到底極限挑戰，免登入點開即玩！">
+  <meta property="og:title" content="鴨鴨高壓急急棒 ⚡ 十萬伏特大逃亡">
+  <meta property="og:description" content="固定速度自動捲軸推進、玩家自由拖動鴨鴨、海量動態高壓機關，你能護送特工鴨一命通關嗎？">
+  <meta property="og:type" content="website">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div id="gameContainer">
+    <!-- 主遊戲畫布 -->
+    <canvas id="gameCanvas"></canvas>
+
+    <!-- 頂部賽博科技 HUD 儀表板 -->
+    <header id="hudOverlay">
+      <div class="hud-top-bar">
+        <div class="hud-title-group">
+          <span style="font-size: 16px;">⚡</span>
+          <h1 class="game-title">鴨鴨高壓急急棒</h1>
+        </div>
+        <div class="hud-controls">
+          <button id="speedToggleBtn" class="hud-btn" type="button">⚡ 速度: 正常</button>
+          <button id="sensToggleBtn" class="hud-btn" type="button">🎯 靈敏: 1.2x</button>
+          <button id="soundToggleBtn" class="hud-btn" type="button">🔊 音效</button>
+          <button id="pauseToggleBtn" class="hud-btn pause-btn" type="button">⏸ 暫停</button>
+        </div>
+      </div>
+
+      <!-- 進度條與即時數據 -->
+      <div class="progress-section">
+        <div class="progress-info-row">
+          <div id="zoneNameBadge" class="zone-badge">Zone 1: 初試鴨啼・安全發電廠</div>
+          <div class="stats-group">
+            <span id="voltageMeterVal" class="voltage-badge">⚡ 100,000 V</span>
+            <span id="hudTimeDisplay">⏱ 0.0s</span>
+          </div>
+        </div>
+
+        <div class="progress-track-wrapper">
+          <div id="progressBarFill" class="progress-fill"></div>
+          <!-- 跑動小鴨游標 -->
+          <div id="progressDuckCursor" class="progress-duck-cursor">
+            <svg viewBox="0 0 36 36" width="20" height="20">
+              <ellipse cx="18" cy="20" rx="12" ry="10" fill="#ffd700"/>
+              <circle cx="22" cy="13" r="8" fill="#ffe033"/>
+              <ellipse cx="28" cy="14" rx="5" ry="3" fill="#ff6b00"/>
+              <circle cx="24" cy="11" r="1.5" fill="#000"/>
+              <circle cx="18" cy="8" r="2" fill="#00f0ff"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- 起始歡迎畫面 (Start Screen) -->
+    <div id="startOverlay" class="overlay-screen">
+      <div class="art-avatar-box">
+        <img src="assets/pure_duck_agent.png" alt="特工鴨主角">
+      </div>
+
+      <h2 class="hero-title">⚡ 鴨鴨高壓急急棒 ⚡</h2>
+      <p class="hero-tagline">按住手指直覺穿梭・隨時間差扭動閃避！</p>
+
+      <div class="quick-banner">
+        ⚡ 22 種金屬機關・黑黃斜紋、圓弧管與狼牙梳齒！<br>
+        🚨 15 大多樣化關卡・有機節奏編排・徹底告別重複！
+      </div>
+
+      <button id="startPlayBtn" class="primary-play-btn" type="button">
+        <span>⚡ 開始逃亡挑戰 ⚡</span>
+      </button>
+    </div>
+
+    <!-- 暫停選單視窗 (Pause Modal) -->
+    <div id="pauseOverlay" class="overlay-screen" style="display: none;">
+      <div class="pause-card">
+        <div style="font-size: 40px; margin-bottom: 6px;">⏸️</div>
+        <h3 style="font-size: 20px; font-weight: 800; margin-bottom: 6px;">遊戲已暫停</h3>
+        <p style="font-size: 12.5px; color: #94a3b8;">高壓防護盾已啟動，稍作休息！</p>
+
+        <div class="modal-actions">
+          <button id="resumePlayBtn" class="action-btn-green" type="button">
+            ▶ 繼續逃亡
+          </button>
+          <button id="pauseRestartBtn" class="action-btn-gray" type="button">
+            🔄 重新開始本關
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 失敗結算視窗 (Game Over) -->
+    <div id="gameOverModal" class="overlay-screen" style="display: none;">
+      <div class="result-card">
+        <div class="result-avatar">
+          <img src="assets/duck_agent_shocked.jpg" alt="觸電特工鴨">
+        </div>
+        <h3 class="result-title">慘烈觸電！鴨鴨變成烤鴨了！</h3>
+        <div id="deathCauseText" class="death-cause">⚡ 慘遭：被液壓高壓活塞壓碎！</div>
+
+        <div class="score-grid">
+          <div class="score-item">
+            <span class="label">本次完成度</span>
+            <span id="finalScoreVal" class="val">0.0%</span>
+          </div>
+          <div class="score-item">
+            <span class="label">歷史最佳紀錄</span>
+            <span id="bestScoreVal" class="val">0.0%</span>
+          </div>
+        </div>
+
+        <button id="retryBtn" class="retry-action-btn" type="button">
+          🔄 鴨鴨不服輸！再來一次！
+        </button>
+      </div>
+    </div>
+
+    <!-- 勝利通關視窗 (Victory) -->
+    <div id="victoryModal" class="overlay-screen" style="display: none;">
+      <div class="result-card victory">
+        <div class="result-avatar">
+          <img src="assets/duck_agent_victory.jpg" alt="黃金特工鴨神">
+        </div>
+        <h3 class="result-title" style="color: #fbbf24;">奇蹟通關！十萬伏特鴨神！</h3>
+        <p style="font-size: 12.5px; color: #cbd5e1; margin-bottom: 14px;">
+          恭喜你以神乎其技的手指微操，一命穿越整座高壓發電廠！
+        </p>
+
+        <div class="score-grid">
+          <div class="score-item">
+            <span class="label">逃亡耗時</span>
+            <span id="victoryTimeVal" class="val">00.0s</span>
+          </div>
+          <div class="score-item">
+            <span class="label">特工評價</span>
+            <span class="val" style="color: #fbbf24;">SSS 鴨神</span>
+          </div>
+        </div>
+
+        <button id="victoryRetryBtn" class="retry-action-btn victory-btn" type="button">
+          🌟 再次挑戰紀錄！
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 模組載入 -->
+  <script src="duck-audio.js"></script>
+  <script src="duck-sprites.js"></script>
+  <script src="duck-mechanisms.js"></script>
+  <script src="duck-course.js"></script>
+  <script src="duck-game.js"></script>
+</body>
+</html>
