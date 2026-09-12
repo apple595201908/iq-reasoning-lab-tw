@@ -50,4 +50,3 @@ cloudflared.exe
 /build/
 
 .vercel
-/scratch/

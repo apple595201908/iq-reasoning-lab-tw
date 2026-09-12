@@ -1,20 +1,4 @@
-# 🧪 認知推理實驗室與特工手遊系列 (Cognitive Lab & Interactive Games TW)
-
-本開源存儲庫整合了數個高品質、手機優先（Mobile First）的互動應用與原創 HTML5 遊戲專案：
-
-### 🌟 專案索引目錄
-1. 🦆 **[【鴨鴨高壓急急棒：十萬伏特大逃亡】](./duck-electric-wire/README.md)** (`duck-electric-wire/`)：
-   - 經典日本電視綜藝《電流急急棒》（電流イライラ棒）現代高壓手遊革新版！
-   - 33,000px 賽道、184 座巨型動態三叉旋轉鋼樑（正轉/逆轉）、咬合齒輪狹道、液壓對衝活塞與重型懸臂。
-   - 支援 2D 多元動態閃避（左右微操 + 上下拉扯時差）、純 Web Audio API 即時程序化合成音效引擎，經 5,910 步 2D 連續物理模擬驗證 100% 真人操作合理性！
-2. 🧠 **[【你的 IQ 有多高？Cognitive Reasoning Lab TW】](#你的-iq-有多高cognitive-reasoning-lab-tw)** (專案根目錄)：
-   - 80 題四選一、全繁體中文、七大認知向度、三參數 IRT (3PL) EAP 估算之認知推理測驗。
-3. 💼 **[【職場自信與心理資本健檢】](./workplace-confidence-quiz/)** (`workplace-confidence-quiz/`)：
-   - 職場自信度、心理韌性與職業效能感自我評估互動應用。
-
----
-
-# 🧠 你的 IQ 有多高？（Cognitive Reasoning Lab TW）
+# 你的 IQ 有多高？（Cognitive Reasoning Lab TW）
 
 一個以手機優先（Mobile First）、全繁體中文、80 題四選一的認知推理推估網站。
 包含 2 題練習、七大認知向度、三參數 IRT（3PL）的 EAP 估算、模型參考區間、能力雷達／輪廓條、作答品質監測、續答與分享圖卡。
